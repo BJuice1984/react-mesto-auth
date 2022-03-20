@@ -3,7 +3,7 @@ import PopupWithForm from './PopupWithForm';
 
 function EditProfilePopup(props) {
 
-  console.log(props)
+  // console.log(props)
   return(
     <PopupWithForm 
       name='profile' 
