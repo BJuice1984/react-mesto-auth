@@ -20,8 +20,8 @@ function AddPlacePopup(props) {
           placeholder="Название"
           value=""
           required
-          minlength="2"
-          maxlength="30"/>
+          minLength="2"
+          maxLength="30"/>
         <span className="popup__input-form-error" id="element-name-error"></span>
       </label>
       <label className="popup__input-form-label">

@@ -20,8 +20,8 @@ function EditProfilePopup(props) {
           className="popup__input-text popup__input-text_type_name"
           value=""
           required
-          minlength="2"
-          maxlength="40"/>
+          minLength="2"
+          maxLength="40"/>
         <span className="popup__input-form-error" id="profile-info-error"></span>
       </label>
       <label className="popup__input-form-label">
@@ -32,8 +32,8 @@ function EditProfilePopup(props) {
           className="popup__input-text popup__input-text_type_description"
           value=""
           required
-          minlength="2"
-          maxlength="200"/>
+          minLength="2"
+          maxLength="200"/>
         <span className="popup__input-form-error" id="profile-description-error"></span>
       </label>
     </PopupWithForm>

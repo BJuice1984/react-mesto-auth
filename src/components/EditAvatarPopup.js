@@ -11,7 +11,7 @@ function EditAvatarPopup(props) {
       isOpen={props.isOpen}
       onClose={props.onClose}>
 
-      <label class="popup__input-form-label">
+      <label className="popup__input-form-label">
         <input
         type="url"
         name="avatar"

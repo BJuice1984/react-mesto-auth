@@ -74,14 +74,7 @@ function App() {
         </div>
       </div>
     </div>
-      <template className="template">
-        <article className="element">
-          <img className="element__photo" src="#" alt="Изображение загружается" />
-          <h2 className="element__name"></h2>
-          <button className="button button_type_heart-like" type="button" aria-label="Лайкнуть"></button>
-          <button className="button button_type_delete" type="button" aria-label="Удалить"></button>
-        </article>
-      </template>
+      
     </body>
   </>
   );

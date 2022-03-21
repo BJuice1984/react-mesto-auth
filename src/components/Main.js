@@ -9,15 +9,17 @@ function Main(props) {
   const [userName, setUserName] = React.useState({});
   const [userDescription, setUserDescription] = React.useState({});
   const [userAvatar, setUserAvatar] = React.useState();
+  const [cards, setCards] = React.useState([]);
 
   React.useEffect(() => {
-    api.getInitialUser()
-    .then((userData) => {
+    Promise.all([api.getInitialUser(), api.getInitialCards()])
+    .then(([userData, initialCards]) => {
       //установка данных пользователя
-      console.log(userData)
+      // console.log(initialCards)
       setUserName(userData.name);
       setUserDescription(userData.about);
       setUserAvatar(userData.avatar);
+      setCards(initialCards)
     })
     .catch(err => {
       console.log(err)
@@ -26,24 +28,41 @@ function Main(props) {
 
   return (
     <main className="content">
-        <section className="profile">
-          <div className="profile__container">
-            <img 
-            onClick={props.onEditAvatar}
-            className="profile__avatar" src={`${userAvatar}`} alt="Фотография профиля" />
-          </div>
-          <h1 className="profile__info">{`${userName}`}</h1>
-          <button
-          onClick={props.onEditProfile}
-          className="button button_type_edit" type="button" aria-label="Редактировать">
-          </button>
-          <p className="profile__description">{`${userDescription}`}</p>
-          <button
-          onClick={props.onAddPlace}
-          className="button button_type_add" type="button" aria-label="Добавить"></button>
-        </section>
-        <section className="elements"></section>
-      </main>
+      <section className="profile">
+        <div className="profile__container">
+          <img 
+          onClick={props.onEditAvatar}
+          className="profile__avatar" src={`${userAvatar}`} alt="Фотография профиля" />
+        </div>
+        <h1 className="profile__info">{`${userName}`}</h1>
+        <button
+        onClick={props.onEditProfile}
+        className="button button_type_edit" type="button" aria-label="Редактировать">
+        </button>
+        <p className="profile__description">{`${userDescription}`}</p>
+        <button
+        onClick={props.onAddPlace}
+        className="button button_type_add" type="button" aria-label="Добавить"></button>
+      </section>
+      <section className="elements">
+
+        {cards.map((card) => {
+          console.log(cards)
+          console.log(card.name)
+          // debugger;
+          return (
+            <article className="element">
+              <img className="element__photo" src={`${card.link}`} alt="Изображение загружается" />
+              <h2 className="element__name">{`${card.name}`}</h2>
+              <button className="button button_type_heart-like" type="button" aria-label="Лайкнуть"></button>
+              <p className="element__counter">{`${card.likes.length}`}</p>
+              <button className="button button_type_delete button_type_delete-disactive" type="button" aria-label="Удалить"></button>
+            </article>
+          )}        
+        )}
+        
+      </section>
+    </main>
   );
 }
 
