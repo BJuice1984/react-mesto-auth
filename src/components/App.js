@@ -5,6 +5,8 @@ import Footer from './Footer';
 import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
+import DeletePopup from './DeletePopup';
+import ImagePopup from './ImagePopup';
 
 function App() {
 
@@ -51,30 +53,7 @@ function App() {
       />
       <AddPlacePopup
         isOpen={isAddPlacePopupOpen} onClose={closeAllPopups}
-      />
-
-
-      <div className="popup popup_type_image">
-        <div className="popup__window popup__window_type_image-opened">
-          <button className="popup__close-button popup__close-button_type_image" type="button" aria-label="Закрыть"></button>
-          <figure className="popup__content">
-            <img className="popup__content popup__content_type_image" src="#" alt="Изображение загружается" />
-            <figcaption className="popup__content popup__content_type_name"></figcaption>
-          </figure>
-        </div>
-      </div>
-      <div className="popup popup_type_delete">
-      <div className="popup__window">
-        <button className="popup__close-button" type="button" aria-label="Закрыть"></button>
-        <div className="popup__content">
-          <h2 className="popup__header">Вы уверены?</h2>
-          <form name="formDelete" className="popup__input-form popup__input-form_type_delete" novalidate>
-            <button className="popup__save-button" type="submit" aria-label="Да">Да</button>
-          </form>
-        </div>
-      </div>
-    </div>
-      
+      />      
     </body>
   </>
   );
