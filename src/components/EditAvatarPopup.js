@@ -18,7 +18,7 @@ function EditAvatarPopup(props) {
         id="element-avatar"
         className="popup__input-text popup__input-text_type_link"
         placeholder="Ссылка на новый аватар"
-        value=""
+        defaultValue=""
         required />
         <span className="popup__input-form-error" id="element-avatar-error"></span>
       </label>

@@ -3,7 +3,6 @@ import PopupWithForm from './PopupWithForm';
 
 function EditProfilePopup(props) {
 
-  // console.log(props)
   return(
     <PopupWithForm 
       name='profile' 
@@ -18,7 +17,7 @@ function EditProfilePopup(props) {
           name="info"
           id="profile-info"
           className="popup__input-text popup__input-text_type_name"
-          value=""
+          defaultValue=""
           required
           minLength="2"
           maxLength="40"/>
@@ -30,7 +29,7 @@ function EditProfilePopup(props) {
           name="description"
           id="profile-description"
           className="popup__input-text popup__input-text_type_description"
-          value=""
+          defaultValue=""
           required
           minLength="2"
           maxLength="200"/>

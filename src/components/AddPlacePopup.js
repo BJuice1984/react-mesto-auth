@@ -18,7 +18,7 @@ function AddPlacePopup(props) {
           id="element-name"
           className="popup__input-text popup__input-text_type_name"
           placeholder="Название"
-          value=""
+          defaultValue=""
           required
           minLength="2"
           maxLength="30"/>
@@ -31,7 +31,7 @@ function AddPlacePopup(props) {
         id="element-photo"
         className="popup__input-text popup__input-text_type_link"
         placeholder="Ссылка на картнку"
-        value=""
+        defaultValue=""
         required />
         <span className="popup__input-form-error" id="element-photo-error"></span>
       </label>

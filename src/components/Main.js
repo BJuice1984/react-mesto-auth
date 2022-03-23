@@ -5,8 +5,6 @@ import Card from './Card';
 
 function Main(props) {
 
-  // console.log(props);
-
   const [userName, setUserName] = React.useState({});
   const [userDescription, setUserDescription] = React.useState({});
   const [userAvatar, setUserAvatar] = React.useState();
@@ -16,7 +14,6 @@ function Main(props) {
     Promise.all([api.getInitialUser(), api.getInitialCards()])
     .then(([userData, initialCards]) => {
       //установка данных пользователя
-      // console.log(initialCards)
       setUserName(userData.name);
       setUserDescription(userData.about);
       setUserAvatar(userData.avatar);
@@ -26,6 +23,9 @@ function Main(props) {
       console.log(err)
     });
   }, []);
+
+  // console.log(props)
+  // debugger;
 
   return (
     <main className="content">
@@ -48,13 +48,11 @@ function Main(props) {
       <section className="elements">
 
         {cards.map((card) => {
-          // console.log(cards)
-          console.log(card.name)
-          console.log(card)
-          // debugger;
           return (
             <Card
               card={card}
+              onCardClick={props.onCardClick}
+              onImageClick={props.onImageClick}
             />
           )}        
         )}
