@@ -1,9 +1,6 @@
 import React from "react";
 
 function Card(props) {
-  // console.log(props)
-  // console.log(props.card.name)
-  // debugger;
 
   function handleClick() {
     props.onCardClick(props.card);

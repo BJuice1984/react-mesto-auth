@@ -5,9 +5,9 @@ import Card from './Card';
 
 function Main(props) {
 
-  const [userName, setUserName] = React.useState({});
-  const [userDescription, setUserDescription] = React.useState({});
-  const [userAvatar, setUserAvatar] = React.useState();
+  const [userName, setUserName] = React.useState(null);
+  const [userDescription, setUserDescription] = React.useState(null);
+  const [userAvatar, setUserAvatar] = React.useState(null);
   const [cards, setCards] = React.useState([]);
 
   React.useEffect(() => {
@@ -24,16 +24,15 @@ function Main(props) {
     });
   }, []);
 
-  // console.log(props)
-  // debugger;
+  // console.log({userAvatar}) не грузит без {}
 
   return (
     <main className="content">
       <section className="profile">
         <div className="profile__container">
-          <img 
+          {userAvatar && (<img 
           onClick={props.onEditAvatar}
-          className="profile__avatar" src={`${userAvatar}`} alt="Фотография профиля" />
+          className="profile__avatar" src={`${userAvatar}`} alt="Фотография профиля" />)}
         </div>
         <h1 className="profile__info">{`${userName}`}</h1>
         <button
@@ -51,6 +50,7 @@ function Main(props) {
           return (
             <Card
               card={card}
+              key={card._id}
               onCardClick={props.onCardClick}
               onImageClick={props.onImageClick}
             />
