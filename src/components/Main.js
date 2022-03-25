@@ -24,22 +24,20 @@ function Main(props) {
     });
   }, []);
 
-  // console.log({userAvatar}) не грузит без {}
-
   return (
     <main className="content">
       <section className="profile">
         <div className="profile__container">
           {userAvatar && (<img 
           onClick={props.onEditAvatar}
-          className="profile__avatar" src={`${userAvatar}`} alt="Фотография профиля" />)}
+          className="profile__avatar" src={userAvatar} alt="Фотография профиля" />)}
         </div>
-        <h1 className="profile__info">{`${userName}`}</h1>
+        {userName && <h1 className="profile__info">{userName}</h1>}
         <button
         onClick={props.onEditProfile}
         className="button button_type_edit" type="button" aria-label="Редактировать">
         </button>
-        <p className="profile__description">{`${userDescription}`}</p>
+        {userDescription && <p className="profile__description">{userDescription}</p>}
         <button
         onClick={props.onAddPlace}
         className="button button_type_add" type="button" aria-label="Добавить"></button>

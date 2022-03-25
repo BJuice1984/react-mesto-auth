@@ -2,9 +2,8 @@ import React from 'react';
 
 function ImagePopup(props) {
 
-  // console.log(props)
   return(
-    <div className={`popup popup_type_image ${props.isOpen ? 'popup_opened' : ''}`}>
+    <div className={`popup popup_type_image ${props.isOpen && 'popup_opened'}`}>
         <div className="popup__window popup__window_type_image-opened">
           <button
             onClick={props.onClose}
@@ -12,8 +11,8 @@ function ImagePopup(props) {
             type="button" aria-label="Закрыть">
           </button>
           <figure className="popup__content">
-            <img className="popup__content popup__content_type_image" src={`${props.card.link}`} alt="Изображение загружается" />
-            <figcaption className="popup__content popup__content_type_name">{`${props.card.name}`}</figcaption>
+            {props.card && (<img className="popup__content popup__content_type_image" src={`${props.card.link}`} alt="Изображение загружается" />)}
+            {props.card && (<figcaption className="popup__content popup__content_type_name">{`${props.card.name}`}</figcaption>)}
           </figure>
         </div>
       </div>

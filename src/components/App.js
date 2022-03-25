@@ -39,7 +39,7 @@ function App() {
     setIsEditAvatarPopupOpen(false);
     setIsAddPlacePopupOpen(false);
     setIsImagePopupOpen(false);
-    setSelectedCard(''); // с null не работает
+    setSelectedCard(null);
   }
 
   return (
@@ -57,7 +57,7 @@ function App() {
       <PopupWithForm 
       name='profile' 
       title='Редактировать профиль'
-      text='Сохранить'
+      buttonText='Сохранить'
       isOpen={isEditProfilePopupOpen}
       onClose={closeAllPopups}>
       
@@ -89,7 +89,7 @@ function App() {
     <PopupWithForm 
       name='avatar' 
       title='Обновить аватар'
-      text='Сохранить'
+      buttonText='Сохранить'
       isOpen={isEditAvatarPopupOpen}
       onClose={closeAllPopups}>
 
@@ -108,7 +108,7 @@ function App() {
       <PopupWithForm 
       name='add' 
       title='Новое место'
-      text='Сохранить'
+      buttonText='Сохранить'
       isOpen={isAddPlacePopupOpen}
       onClose={closeAllPopups}>
 
