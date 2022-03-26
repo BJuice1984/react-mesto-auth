@@ -3,7 +3,6 @@ import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
 import PopupWithForm from './PopupWithForm';
-import DeletePopup from './DeletePopup';
 import ImagePopup from './ImagePopup';
 
 function App() {
