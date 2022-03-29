@@ -1,28 +1,15 @@
 import React from 'react';
-import { api } from '../utils/Api';
 import Card from './Card';
 import { CurrentUserContext } from '../context/CurrentUserContext';
+import { api } from '../utils/Api';
 
 
 function Main(props) {
 
   const userData = React.useContext(CurrentUserContext);
-  const [cards, setCards] = React.useState([]);
-  console.log(CurrentUserContext)
+  // const [cards, setCards] = React.useState([]);
 
-  // React.useEffect(() => {
-  //   Promise.all([api.getInitialUser(), api.getInitialCards()])
-  //   .then(([userData, initialCards]) => {
-  //     //установка данных пользователя
-  //     setUserName(userData.name);
-  //     setUserDescription(userData.about);
-  //     setUserAvatar(userData.avatar);
-  //     setCards(initialCards)
-  //   })
-  //   .catch(err => {
-  //     console.log(err)
-  //   });
-  // }, []);
+  
 
   return (
     <main className="content">
@@ -44,13 +31,14 @@ function Main(props) {
       </section>
       <section className="elements">
 
-        {cards.map((card) => {
+        {props.cards.map((card) => {
           return (
             <Card
               card={card}
               key={card._id}
               onCardClick={props.onCardClick}
               onImageClick={props.onImageClick}
+              onCardClickLike={props.onCardClickLike}
             />
           )}        
         )}
