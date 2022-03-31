@@ -59,8 +59,18 @@ function App() {
   }
 
   function handleUpdateUser(data) {
-    console.log(data)
     api.getChangeUserInfo(data)
+    .then((res) => {
+      setCurrentUser(res);
+      closeAllPopups();
+    })
+    .catch(err => {
+      console.log(err)
+    });
+  }
+
+  function handleUpdateAvatar(link) {
+    api.getChangeAvatar(link)
     .then((res) => {
       setCurrentUser(res);
       closeAllPopups();
@@ -121,7 +131,7 @@ function App() {
         <EditAvatarPopup
           isOpen={isEditAvatarPopupOpen}
           onClose={closeAllPopups}
-          />
+          onUpdateAvatar={handleUpdateAvatar}/>
         <EditAvatarPopup />
         <AddPlacePopup
           isOpen={isAddPlacePopupOpen}

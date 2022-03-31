@@ -3,17 +3,13 @@ import PopupWithForm from './PopupWithForm';
 
 function EditAvatarPopup(props) {
 
-  // console.log(props.onUpdateUser)
+  const avaRef = React.useRef();
 
   function handleSubmit(e) {
     // Запрещаем браузеру переходить по адресу формы
     e.preventDefault();
-  
     // Передаём значения управляемых компонентов во внешний обработчик
-    props.onUpdateUser({
-      // name,
-      // about: description,
-    });
+    props.onUpdateAvatar({ avatar: avaRef.current.value });
   }
 
   return(
@@ -27,6 +23,7 @@ function EditAvatarPopup(props) {
 
       <label className="popup__input-form-label">
         <input
+        ref={avaRef}
         type="url"
         name="avatar"
         id="element-avatar"

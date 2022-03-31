@@ -4,8 +4,6 @@ import { CurrentUserContext } from '../context/CurrentUserContext';
 
 function EditProfilePopup(props) {
 
-  console.log(props.onUpdateUser)
-
   const userData = React.useContext(CurrentUserContext);
 
   React.useEffect(() => {
