@@ -27,7 +27,6 @@ function App() {
       //установка данных пользователя
       setCurrentUser(userData);
       setCards(initialCards)
-      // console.log(initialCards)
     })
     .catch(err => {
       console.log(err)
@@ -57,6 +56,18 @@ function App() {
         console.log(err)
       });
     }
+  }
+
+  function handleUpdateUser(data) {
+    console.log(data)
+    api.getChangeUserInfo(data)
+    .then((res) => {
+      setCurrentUser(res);
+      closeAllPopups();
+    })
+    .catch(err => {
+      console.log(err)
+    });
   }
 
   function handleEditProfileClick() {
@@ -104,11 +115,13 @@ function App() {
         </div>
         <EditProfilePopup
           isOpen={isEditProfilePopupOpen}
-          onClose={closeAllPopups}/>
+          onClose={closeAllPopups}
+          onUpdateUser={handleUpdateUser}/>
         <EditProfilePopup />
         <EditAvatarPopup
           isOpen={isEditAvatarPopupOpen}
-          onClose={closeAllPopups}/>
+          onClose={closeAllPopups}
+          />
         <EditAvatarPopup />
         <AddPlacePopup
           isOpen={isAddPlacePopupOpen}

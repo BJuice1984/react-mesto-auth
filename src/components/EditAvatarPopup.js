@@ -3,13 +3,27 @@ import PopupWithForm from './PopupWithForm';
 
 function EditAvatarPopup(props) {
 
+  // console.log(props.onUpdateUser)
+
+  function handleSubmit(e) {
+    // Запрещаем браузеру переходить по адресу формы
+    e.preventDefault();
+  
+    // Передаём значения управляемых компонентов во внешний обработчик
+    props.onUpdateUser({
+      // name,
+      // about: description,
+    });
+  }
+
   return(
     <PopupWithForm 
       name='avatar' 
       title='Обновить аватар'
       buttonText='Сохранить'
       isOpen={props.isOpen}
-      onClose={props.onClose}>
+      onClose={props.onClose}
+      onSubmit={handleSubmit}>
 
       <label className="popup__input-form-label">
         <input
