@@ -2,7 +2,6 @@ import React from 'react';
 import Header from './Header';
 import Main from './Main';
 import Footer from './Footer';
-import PopupWithForm from './PopupWithForm';
 import ImagePopup from './ImagePopup';
 import { api } from '../utils/Api';
 import { CurrentUserContext } from '../context/CurrentUserContext';
@@ -58,6 +57,17 @@ function App() {
     }
   }
 
+  function handleCardDelete(card) {
+    api.getDeleteCard(card._id)
+    .then(() => {
+      const newCards = cards.filter(c => c._id !== card._id);
+      setCards(newCards); // Обновляем стейт
+    })
+    .catch(err => {
+      console.log(err)
+    });
+  }
+
   function handleUpdateUser(data) {
     api.getChangeUserInfo(data)
     .then((res) => {
@@ -73,6 +83,17 @@ function App() {
     api.getChangeAvatar(link)
     .then((res) => {
       setCurrentUser(res);
+      closeAllPopups();
+    })
+    .catch(err => {
+      console.log(err)
+    });
+  }
+
+  function handleAddPlaceSubmit(cardItem) {
+    api.getNewCard(cardItem)
+    .then((newCardItem) => {
+      setCards([...cards, newCardItem]);
       closeAllPopups();
     })
     .catch(err => {
@@ -120,7 +141,8 @@ function App() {
             onCardClick={handleCardClick}
             onImageClick={handleImageClick}
             cards={cards}
-            onCardClickLike={handleCardLike}/>
+            onCardClickLike={handleCardLike}
+            onCardDelete={handleCardDelete}/>
           <Footer />
         </div>
         <EditProfilePopup
@@ -135,7 +157,8 @@ function App() {
         <EditAvatarPopup />
         <AddPlacePopup
           isOpen={isAddPlacePopupOpen}
-          onClose={closeAllPopups}/>
+          onClose={closeAllPopups}
+          onAddPlace={handleAddPlaceSubmit}/>
         <AddPlacePopup />
         <ImagePopup
           card={selectedCard} isOpen={isImagePopupOpen} onClose={closeAllPopups}
