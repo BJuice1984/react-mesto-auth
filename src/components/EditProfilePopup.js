@@ -9,7 +9,7 @@ function EditProfilePopup(props) {
   React.useEffect(() => {
     setUserName(userData.name);
     setUserDescription(userData.about);
-  }, [userData])
+  }, [userData, props.isOpen]) //props.isOpen здесь возвращает первоначальное состояние инпутов и нет необходимости очищать их после закрытия попапа
 
   const [userName, setUserName] = React.useState('');
   const [userDescription, setUserDescription] = React.useState('');
@@ -43,12 +43,13 @@ function EditProfilePopup(props) {
       
       <label className="popup__input-form-label">
         <input
-          value={userName ? userName : ''}
+          value={userName || ''}
           onChange={handleChangeUserName}
           type="text"
           name="info"
           id="profile-info"
           className="popup__input-text popup__input-text_type_name"
+          placeholder="Имя пользователя"
           required
           minLength="2"
           maxLength="40"/>
@@ -56,12 +57,13 @@ function EditProfilePopup(props) {
       </label>
       <label className="popup__input-form-label">
         <input
-          value={userDescription ? userDescription : ''}
+          value={userDescription || ''}
           onChange={handleChangeUserDescription}
           type="text"
           name="description"
           id="profile-description"
           className="popup__input-text popup__input-text_type_description"
+          placeholder="Профессия"
           required
           minLength="2"
           maxLength="200"/>

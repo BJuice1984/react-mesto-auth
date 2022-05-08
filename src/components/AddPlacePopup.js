@@ -23,6 +23,11 @@ function AddPlacePopup(props) {
       link: cardLink });
   }
 
+  React.useEffect(() => {
+    setCardName('');
+    setCardLink('')
+  },[props.isOpen])
+
   return(
     <PopupWithForm 
       name='add' 
@@ -34,7 +39,7 @@ function AddPlacePopup(props) {
 
       <label className="popup__input-form-label">
         <input
-          value={cardName ? cardName : ''}
+          value={cardName || ''}
           onChange={handleChangeCardName}
           type="text"
           name="name"

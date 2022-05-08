@@ -39,17 +39,19 @@ function App() {
     if (!isLiked) {
       api.getAddLike(card._id) // Отправляем запрос в API и получаем обновлённые данные карточки
       .then((newCard) => {
-        const newCards = cards.map((c) => c._id === card._id ? newCard : c); // Формируем новый массив на основе имеющегося, подставляя в него новую карточку                                    
-        setCards(newCards); // Обновляем стейт
+        setCards((prevCards) => {  //Обновляем стейт через колбек по предидущему значению стейта без замыкания
+          return prevCards.map((c) => c._id === card._id ? newCard : c);
+        })
       })
       .catch(err => {
         console.log(err)
       });
     } else {
       api.getRemoveLike(card._id)
-      .then((newCard) => {                                    
-        const newCards = cards.map((c) => c._id === card._id ? newCard : c); // Формируем новый массив на основе имеющегося, подставляя в него новую карточку                                    
-        setCards(newCards); // Обновляем стейт
+      .then((newCard) => {     
+        setCards((prevCards) => {  //Обновляем стейт через колбек по предидущему значению стейта без замыкания
+          return prevCards.map((c) => c._id === card._id ? newCard : c);
+        })                               
       })
       .catch(err => {
         console.log(err)
@@ -60,8 +62,9 @@ function App() {
   function handleCardDelete(card) {
     api.getDeleteCard(card._id)
     .then(() => {
-      const newCards = cards.filter(c => c._id !== card._id);
-      setCards(newCards); // Обновляем стейт
+      setCards((prevCards) => {  //Обновляем стейт через колбек по предидущему значению стейта без замыкания
+        return prevCards.filter(c => c._id !== card._id);
+      })
     })
     .catch(err => {
       console.log(err)
@@ -93,7 +96,7 @@ function App() {
   function handleAddPlaceSubmit(cardItem) {
     api.getNewCard(cardItem)
     .then((newCardItem) => {
-      setCards([...cards, newCardItem]);
+      setCards([newCardItem, ...cards]);
       closeAllPopups();
     })
     .catch(err => {
