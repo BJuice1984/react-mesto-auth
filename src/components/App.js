@@ -18,9 +18,11 @@ function App() {
   const [isImagePopupOpen, setIsImagePopupOpen] = React.useState(false);
   const [currentUser, setCurrentUser] = React.useState({});
   const [cards, setCards] = React.useState([]);
+  const [isLoading, setIsLoading] = React.useState(false);
 
 
   React.useEffect(() => {
+    setIsLoading(true);
     Promise.all([api.getInitialUser(), api.getInitialCards()])
     .then(([userData, initialCards]) => {
       //установка данных пользователя
@@ -29,7 +31,8 @@ function App() {
     })
     .catch(err => {
       console.log(err)
-    });
+    })
+    .finally(() => setIsLoading(false));
   }, []);
 
   function handleCardLike(card) {
@@ -145,7 +148,8 @@ function App() {
             onImageClick={handleImageClick}
             cards={cards}
             onCardClickLike={handleCardLike}
-            onCardDelete={handleCardDelete}/>
+            onCardDelete={handleCardDelete}
+            isLoading={isLoading}/>
           <Footer />
         </div>
         <EditProfilePopup

@@ -1,6 +1,7 @@
 import React from 'react';
 import Card from './Card';
 import { CurrentUserContext } from '../context/CurrentUserContext';
+import Spinner from './Spinner';
 
 
 function Main(props) {
@@ -8,6 +9,9 @@ function Main(props) {
   const userData = React.useContext(CurrentUserContext);
 
   return (
+    
+    props.isLoading ? <Spinner/> :
+
     <main className="content">
       <section className="profile">
         <div className="profile__container">
@@ -26,8 +30,8 @@ function Main(props) {
         className="button button_type_add" type="button" aria-label="Добавить"></button>
       </section>
       <section className="elements">
-
-        {props.cards.map((card) => {
+        {
+        props.cards.map((card) => {
           return (
             <Card
               card={card}
@@ -35,11 +39,9 @@ function Main(props) {
               onCardClick={props.onCardClick}
               onImageClick={props.onImageClick}
               onCardClickLike={props.onCardClickLike}
-              onCardDelete={props.onCardDelete}
-            />
-          )}        
-        )}
-        
+              onCardDelete={props.onCardDelete}/>
+          )})
+        }        
       </section>
     </main>
   );
