@@ -26,7 +26,8 @@ function Card(props) {
   }
 
   function handleDeleteClick() {
-    props.onCardDelete(props.card)
+    props.onCardDelete(props.card);
+    props.onTrashClick()
   }
 
   return(

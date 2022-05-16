@@ -36,7 +36,7 @@ function EditProfilePopup(props) {
     <PopupWithForm 
       name='profile' 
       title='Редактировать профиль'
-      buttonText='Сохранить'
+      buttonText={props.isConfirm ? 'Сохранение...' : 'Сохранить'}
       isOpen={props.isOpen}
       onClose={props.onClose}
       onSubmit={handleSubmit}>
