@@ -23,7 +23,6 @@ function App() {
   const [isConfirmDeleteCard, setIsConfirmDeleteCard] = React.useState(false);
   const [isConfirmating, setIsConfirmatiing] = React.useState(false);
 
-
   React.useEffect(() => {
     setIsLoading(true);
     Promise.all([api.getInitialUser(), api.getInitialCards()])
@@ -139,10 +138,6 @@ function App() {
     setSelectedCard(card);
   }
 
-  function handleConfirmDelete(card) {
-    setSelectedCard(card);
-  }
-
   function handleTrashClick() {
     setIsConfirmDeleteCard(true);
   }
@@ -169,7 +164,6 @@ function App() {
             onImageClick={handleImageClick}
             cards={cards}
             onCardClickLike={handleCardLike}
-            onCardDelete={handleConfirmDelete}
             onTrashClick={handleTrashClick}
             isLoading={isLoading}/>
           <Footer />
@@ -179,31 +173,31 @@ function App() {
           onClose={closeAllPopups}
           onUpdateUser={handleUpdateUser}
           isConfirm={isConfirmating}/>
-        <EditProfilePopup />
+
         <EditAvatarPopup
           isOpen={isEditAvatarPopupOpen}
           onClose={closeAllPopups}
           onUpdateAvatar={handleUpdateAvatar}
           isConfirm={isConfirmating}/>
-        <EditAvatarPopup />
+
         <AddPlacePopup
           isOpen={isAddPlacePopupOpen}
           onClose={closeAllPopups}
           onAddPlace={handleAddPlaceSubmit}
           isConfirm={isConfirmating}/>
-        <AddPlacePopup />
+
         <ConfirmationPopup
           isOpen={isConfirmDeleteCard}
           onClose={closeAllPopups}
           onConfirmDelete={handleCardDelete}
           card={selectedCard}
           isConfirm={isConfirmating}/>
-        <ConfirmationPopup />
+
         <ImagePopup
           card={selectedCard} 
           isOpen={isImagePopupOpen} 
           onClose={closeAllPopups}/>
-        <ImagePopup/> 
+
       </div>
     </CurrentUserContext.Provider>
   );

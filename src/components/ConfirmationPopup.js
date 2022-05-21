@@ -13,10 +13,11 @@ function ConfirmationPopup(props) {
     <PopupWithForm 
       name='delete' 
       title='Вы уверены?'
-      buttonText={props.isConfirm ? 'Удаление...' : 'Да'}
+      buttonText={props.isConfirm ? 'Удаление...' : 'Да'} //не понятно, почему перед закрытием текст кнопки меняется на первоначальный
       isOpen={props.isOpen}
       onClose={props.onClose}
-      onSubmit={handleSubmit}>      
+      onSubmit={handleSubmit}
+      isFormValid={true}>
 
     </PopupWithForm>
   )

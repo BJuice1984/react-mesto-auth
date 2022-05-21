@@ -31,7 +31,7 @@ function PopupWithForm(props) {
   }, [props.isOpen]);
 
   return(
-    <div className={`popup popup_type_${props.name} ${props.isOpen && 'popup_opened'}`}>
+    <div className={`popup popup_type_${props.name} ${props.isOpen ? 'popup_opened' : ''}`}>
         <div className="popup__window">
           <button 
             className="popup__close-button" 
@@ -41,9 +41,9 @@ function PopupWithForm(props) {
           </button>
           <div className="popup__content">
             <h2 className="popup__header">{props.title}</h2>
-            <form onSubmit={props.onSubmit} name={props.name} className={`popup__input-form popup__input-form_type_${props.name}`} noValidate>
+            <form onSubmit={props.onSubmit} name={props.name} className={`popup__input-form popup__input-form_type_${props.name}`} >
               {props.children}
-              <button className="popup__save-button" type="submit" aria-label="Сохранить">{props.buttonText}</button>
+              <button className={`popup__save-button ${(!props.isFormValid) ? 'popup__save-button_disabled' : ''}`} type="submit" aria-label="Сохранить">{props.buttonText}</button>
             </form>
           </div>
         </div>
