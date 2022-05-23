@@ -2,7 +2,7 @@ import React from 'react';
 
 function ImagePopup(props) {
 
-  console.log(props.card);
+  // console.log(props.card);
 
   React.useEffect(() => {
     if (!props.card) return;

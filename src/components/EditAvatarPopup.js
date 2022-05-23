@@ -5,14 +5,13 @@ function EditAvatarPopup(props) {
 
   const avaRef = React.useRef();
 
-  const [isValidAvaRef, setValidityAvaRef] = React.useState(false);
+  const [isValidAvaRef, setValidityAvaRef] = React.useState(true);
   const [errorAvaRef, setErrorAvaRef] = React.useState('');
 
   const [isFormValid, setValidityForm] = React.useState(false)
 
   function handleChangeAvaLink(e) {
-    setValidityAvaRef(e.target.validity.valid);
-    if (!isValidAvaRef) {
+    if (!setValidityAvaRef(e.target.validity.valid)) {
       setErrorAvaRef(e.target.validationMessage);
     } else {
       setErrorAvaRef('');

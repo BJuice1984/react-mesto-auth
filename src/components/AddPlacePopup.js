@@ -6,18 +6,17 @@ function AddPlacePopup(props) {
   const [cardName, setCardName] = React.useState('');
   const [cardLink, setCardLink] = React.useState('');
 
-  const [isValidCardName, setValidityСardName] = React.useState(true);
+  const [isValidCardName, setValidityСardName] = React.useState(false);
   const [errorСardName, setErrorCardName] = React.useState('');
 
-  const [isValidCardLink, setValidityCardLink] = React.useState(true);
+  const [isValidCardLink, setValidityCardLink] = React.useState(false);
   const [errorСardLink, setErrorCardLink] = React.useState('');
 
   const [isFormValid, setValidityForm] = React.useState(false)
 
   function handleChangeCardName(e) {
-    setCardName(e.target.value);
-    setValidityСardName(e.target.validity.valid);
-    if (!isValidCardName) {
+    setCardName(e.target.value);    
+    if (!setValidityСardName(e.target.validity.valid)) {
       setErrorCardName(e.target.validationMessage);
     } else {
       setErrorCardName('');
@@ -26,8 +25,7 @@ function AddPlacePopup(props) {
 
   function handleChangeCardLink(e) {
     setCardLink(e.target.value);
-    setValidityCardLink(e.target.validity.valid);
-    if (!isValidCardLink) {
+    if (!setValidityCardLink(e.target.validity.valid)) {
       setErrorCardLink(e.target.validationMessage);
     } else {
       setErrorCardLink('');
@@ -81,7 +79,7 @@ function AddPlacePopup(props) {
           className={`popup__input-text popup__input-text_type_name ${!isValidCardName ? 'popup__input-text_type_error' : ''}`}
           placeholder="Название"
           required
-          minLength="2"
+          minLength="3"
           maxLength="30"/>
         <span className={`popup__input-form-error ${!isValidCardName ? 'popup__input-form-error_active' : ''}`} id="element-name-error">{errorСardName}</span>
       </label>

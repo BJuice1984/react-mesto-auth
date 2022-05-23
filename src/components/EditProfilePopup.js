@@ -29,8 +29,7 @@ function EditProfilePopup(props) {
 
   function handleChangeUserName(e) {
     setUserName(e.target.value);
-    setValidityUserName(e.target.validity.valid);
-    if (!isValidUserName) {
+    if (!setValidityUserName(e.target.validity.valid)) {
       setErrorUserName(e.target.validationMessage);
     } else {
       setErrorUserName('');
@@ -39,8 +38,7 @@ function EditProfilePopup(props) {
 
   function handleChangeUserDescription(e) {
     setUserDescription(e.target.value);
-    setValidityUserDescription(e.target.validity.valid);
-    if (!isValidUserDescription) {
+    if (!setValidityUserDescription(e.target.validity.valid)) {
       setErrorUserDescription(e.target.validationMessage);
     } else {
       setErrorUserDescription('');
