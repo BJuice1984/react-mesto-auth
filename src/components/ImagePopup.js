@@ -2,8 +2,10 @@ import React from 'react';
 
 function ImagePopup(props) {
 
+  console.log(props.card);
+
   React.useEffect(() => {
-    if (!props.isOpen) return;
+    if (!props.card) return;
 
     function handleEsc(e) {
       if (e.key === "Escape") {
@@ -14,10 +16,10 @@ function ImagePopup(props) {
     document.addEventListener("keydown", handleEsc);    
     return () => {document.removeEventListener("keydown", handleEsc)
     }
-  }, [props.isOpen]);
+  }, [props.card]);
 
   React.useEffect(() => {
-    if (!props.isOpen) return;
+    if (!props.card) return;
 
     function handleClickClose(e) {
       if (e.target.className.includes("popup_opened")) {
@@ -28,10 +30,10 @@ function ImagePopup(props) {
     document.addEventListener("mousedown", handleClickClose);    
     return () => {document.removeEventListener("mousedown", handleClickClose)
     }
-  }, [props.isOpen]);
+  }, [props.card]);
 
   return(
-    <div className={`popup popup_type_image ${props.isOpen ? 'popup_opened' : ''}`}>
+    <div className={`popup popup_type_image ${props.card ? 'popup_opened' : ''}`}>
         <div className="popup__window popup__window_type_image-opened">
           <button
             onClick={props.onClose}
@@ -39,7 +41,7 @@ function ImagePopup(props) {
             type="button" aria-label="Закрыть">
           </button>
           <figure className="popup__content">
-            {props.card && (<img className="popup__content popup__content_type_image" src={props.card.link} alt="Изображение загружается" />)}
+            {props.card && (<img className="popup__content popup__content_type_image" src={props.card.link} alt={props.card.name}/>)}
             {props.card && (<figcaption className="popup__content popup__content_type_name">{props.card.name}</figcaption>)}
           </figure>
         </div>

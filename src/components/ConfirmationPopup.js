@@ -3,6 +3,8 @@ import PopupWithForm from "./PopupWithForm";
 
 function ConfirmationPopup(props) {
 
+  console.log(props.card);
+
   function handleSubmit(e) {
     // Запрещаем браузеру переходить по адресу формы
     e.preventDefault();
@@ -11,7 +13,7 @@ function ConfirmationPopup(props) {
 
   return(
     <PopupWithForm 
-      name='delete' 
+      name='delete'
       title='Вы уверены?'
       buttonText={props.isConfirm ? 'Удаление...' : 'Да'} //не понятно, почему перед закрытием текст кнопки меняется на первоначальный
       isOpen={props.isOpen}

@@ -15,8 +15,7 @@ function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
-  const [selectedCard, setSelectedCard] = React.useState({});
-  const [isImagePopupOpen, setIsImagePopupOpen] = React.useState(false);
+  const [selectedCard, setSelectedCard] = React.useState(null);
   const [currentUser, setCurrentUser] = React.useState({});
   const [cards, setCards] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(false);
@@ -130,10 +129,6 @@ function App() {
     setIsAddPlacePopupOpen(true);
   }
 
-  function handleImageClick() {
-    setIsImagePopupOpen(true);
-  }
-
   function handleCardClick(card) {
     setSelectedCard(card);
   }
@@ -146,7 +141,6 @@ function App() {
     setIsEditProfilePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
     setIsAddPlacePopupOpen(false);
-    setIsImagePopupOpen(false);
     setSelectedCard(null);
     setIsConfirmDeleteCard(false);
   }
@@ -161,7 +155,6 @@ function App() {
             onEditAvatar={handleEditAvatarClick}
             onAddPlace={handleAddPlaceClick}
             onCardClick={handleCardClick}
-            onImageClick={handleImageClick}
             cards={cards}
             onCardClickLike={handleCardLike}
             onTrashClick={handleTrashClick}
@@ -190,12 +183,10 @@ function App() {
           isOpen={isConfirmDeleteCard}
           onClose={closeAllPopups}
           onConfirmDelete={handleCardDelete}
-          card={selectedCard}
           isConfirm={isConfirmating}/>
 
         <ImagePopup
           card={selectedCard} 
-          isOpen={isImagePopupOpen} 
           onClose={closeAllPopups}/>
 
       </div>

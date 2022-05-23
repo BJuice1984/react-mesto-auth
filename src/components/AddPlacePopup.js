@@ -27,7 +27,7 @@ function AddPlacePopup(props) {
   function handleChangeCardLink(e) {
     setCardLink(e.target.value);
     setValidityCardLink(e.target.validity.valid);
-    if (!isValidCardName) {
+    if (!isValidCardLink) {
       setErrorCardLink(e.target.validationMessage);
     } else {
       setErrorCardLink('');
@@ -65,7 +65,7 @@ function AddPlacePopup(props) {
     <PopupWithForm 
       name='add' 
       title='Новое место'
-      buttonText={props.isConfirm ? 'Секундочку...' : 'Сохранить'} //не понятно, почему перед закрытием текст кнопки меняется на первоначальный?
+      buttonText={props.isConfirm ? 'Секундочку...' : 'Сохранить'} //не понятно, почему перед закрытием текст кнопки меняется на первоначальный
       isOpen={props.isOpen}
       onClose={props.onClose}
       onSubmit={handleSubmit}
@@ -78,12 +78,12 @@ function AddPlacePopup(props) {
           type="text"
           name="name"
           id="element-name"
-          className={`popup__input-text popup__input-text_type_name ${!isFormValid ? 'popup__input-text_type_error' : ''}`}
+          className={`popup__input-text popup__input-text_type_name ${!isValidCardName ? 'popup__input-text_type_error' : ''}`}
           placeholder="Название"
           required
           minLength="2"
           maxLength="30"/>
-        <span className={`popup__input-form-error ${!isFormValid ? 'popup__input-form-error_active' : ''}`} id="element-name-error">{errorСardName}</span>
+        <span className={`popup__input-form-error ${!isValidCardName ? 'popup__input-form-error_active' : ''}`} id="element-name-error">{errorСardName}</span>
       </label>
       <label className="popup__input-form-label">
         <input
@@ -92,10 +92,10 @@ function AddPlacePopup(props) {
         type="url"
         name="link"
         id="element-photo"
-        className={`popup__input-text popup__input-text_type_link ${!isFormValid ? 'popup__input-text_type_error' : ''}`}
+        className={`popup__input-text popup__input-text_type_link ${!isValidCardLink ? 'popup__input-text_type_error' : ''}`}
         placeholder="Ссылка на картнку"
         required />
-        <span className={`popup__input-form-error ${!isFormValid ? 'popup__input-form-error_active' : ''}`} id="element-photo-error">{errorСardLink}</span>
+        <span className={`popup__input-form-error ${!isValidCardLink ? 'popup__input-form-error_active' : ''}`} id="element-photo-error">{errorСardLink}</span>
       </label>
       </PopupWithForm>
   )

@@ -62,6 +62,7 @@ function EditAvatarPopup(props) {
         className={`popup__input-text popup__input-text_type_link ${!isValidAvaRef ? 'popup__input-text_type_error' : ''}`}
         placeholder="Ссылка на новый аватар"
         defaultValue=""
+        minLength="2"
         required />
         <span className={`popup__input-form-error ${!isValidAvaRef ? 'popup__input-form-error_active' : ''}`} id="element-avatar-error">{errorAvaRef}</span>
       </label>
