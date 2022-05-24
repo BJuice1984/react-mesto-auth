@@ -183,10 +183,12 @@ function App() {
           isOpen={isConfirmDeleteCard}
           onClose={closeAllPopups}
           onConfirmDelete={handleCardDelete}
-          isConfirm={isConfirmating}/>
+          isConfirm={isConfirmating}
+          card={selectedCard}/>
 
         <ImagePopup
-          card={selectedCard} 
+          card={selectedCard}
+          isConfirmationPopupOpen={isConfirmDeleteCard}
           onClose={closeAllPopups}/>
 
       </div>

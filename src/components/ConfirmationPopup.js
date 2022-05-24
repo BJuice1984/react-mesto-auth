@@ -3,8 +3,6 @@ import PopupWithForm from "./PopupWithForm";
 
 function ConfirmationPopup(props) {
 
-  // console.log(props.card);
-
   function handleSubmit(e) {
     // Запрещаем браузеру переходить по адресу формы
     e.preventDefault();

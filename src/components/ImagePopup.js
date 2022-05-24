@@ -2,8 +2,6 @@ import React from 'react';
 
 function ImagePopup(props) {
 
-  // console.log(props.card);
-
   React.useEffect(() => {
     if (!props.card) return;
 
@@ -33,7 +31,7 @@ function ImagePopup(props) {
   }, [props.card]);
 
   return(
-    <div className={`popup popup_type_image ${props.card ? 'popup_opened' : ''}`}>
+    <div className={`popup popup_type_image ${props.card && !props.isConfirmationPopupOpen ? 'popup_opened' : ''}`}>
         <div className="popup__window popup__window_type_image-opened">
           <button
             onClick={props.onClose}
