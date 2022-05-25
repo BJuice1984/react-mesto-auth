@@ -38,7 +38,7 @@ function Main(props) {
               key={card._id}
               onCardClick={props.onCardClick}
               onCardClickLike={props.onCardClickLike}
-              onCardDelete={props.onCardDelete}
+              onCardClickToDelete={props.onCardClickToDelete}
               onTrashClick={props.onTrashClick}/>
           )})
         }        

@@ -3,12 +3,12 @@ import PopupWithForm from './PopupWithForm';
 
 function EditAvatarPopup(props) {
 
+ 
+  
   const avaRef = React.useRef();
 
   const [isValidAvaRef, setValidityAvaRef] = React.useState(true);
   const [errorAvaRef, setErrorAvaRef] = React.useState('');
-
-  const [isFormValid, setValidityForm] = React.useState(false)
 
   function handleChangeAvaLink(e) {
     if (!setValidityAvaRef(e.target.validity.valid)) {
@@ -17,15 +17,6 @@ function EditAvatarPopup(props) {
       setErrorAvaRef('');
     }
   }
-
-  React.useEffect(() => {
-    if (isValidAvaRef) {
-      setValidityForm(true)
-    } else {
-      setValidityForm(false)
-    }
-  }, [isValidAvaRef])
-
 
   function handleSubmit(e) {
     // Запрещаем браузеру переходить по адресу формы
@@ -37,7 +28,6 @@ function EditAvatarPopup(props) {
   React.useEffect(() => {
     avaRef.current.value = '';
     setErrorAvaRef('');
-    setValidityForm('');
     setValidityAvaRef(true);
   },[props.isOpen])
   
@@ -49,7 +39,7 @@ function EditAvatarPopup(props) {
       isOpen={props.isOpen}
       onClose={props.onClose}
       onSubmit={handleSubmit}
-      isFormValid={isFormValid}>
+      isFormValid={isValidAvaRef}>
 
       <label className="popup__input-form-label">
         <input

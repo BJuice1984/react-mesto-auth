@@ -21,6 +21,7 @@ function App() {
   const [isLoading, setIsLoading] = React.useState(false);
   const [isConfirmDeleteCard, setIsConfirmDeleteCard] = React.useState(false);
   const [isConfirmating, setIsConfirmatiing] = React.useState(false);
+  const [cardToDeleted, setCardToDeleted] = React.useState(null);
 
   React.useEffect(() => {
     setIsLoading(true);
@@ -133,6 +134,10 @@ function App() {
     setSelectedCard(card);
   }
 
+  function handleCardToDeleteClick(card) {
+    setCardToDeleted(card);
+  }
+
   function handleTrashClick() {
     setIsConfirmDeleteCard(true);
   }
@@ -158,6 +163,7 @@ function App() {
             cards={cards}
             onCardClickLike={handleCardLike}
             onTrashClick={handleTrashClick}
+            onCardClickToDelete={handleCardToDeleteClick}
             isLoading={isLoading}/>
           <Footer />
         </div>
@@ -184,11 +190,10 @@ function App() {
           onClose={closeAllPopups}
           onConfirmDelete={handleCardDelete}
           isConfirm={isConfirmating}
-          card={selectedCard}/>
+          card={cardToDeleted}/>
 
         <ImagePopup
           card={selectedCard}
-          isConfirmationPopupOpen={isConfirmDeleteCard}
           onClose={closeAllPopups}/>
 
       </div>
