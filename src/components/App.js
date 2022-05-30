@@ -9,6 +9,11 @@ import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
 import ConfirmationPopup from './ConfirmationPopup';
+import { Switch, Route } from 'react-router-dom';
+import Login from './Login';
+import Register from './Register';
+import ProtectedRoute from './ProtectedRoute';
+import InfoTooltip from './InfoTooltip';
 
 function App() {
 
@@ -22,6 +27,7 @@ function App() {
   const [isConfirmDeleteCard, setIsConfirmDeleteCard] = React.useState(false);
   const [isConfirmating, setIsConfirmatiing] = React.useState(false);
   const [cardToDeleted, setCardToDeleted] = React.useState(null);
+  const [isInfoTooltipOpen, setInfoTooltipOpen] = React.useState(true);
 
   React.useEffect(() => {
     setIsLoading(true);
@@ -142,30 +148,56 @@ function App() {
     setIsConfirmDeleteCard(true);
   }
 
+  function handleLoginClick() {
+    setInfoTooltipOpen(true);
+  }
+
   function closeAllPopups() {
     setIsEditProfilePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
     setIsAddPlacePopupOpen(false);
     setSelectedCard(null);
     setIsConfirmDeleteCard(false);
+    setInfoTooltipOpen(false);
   }
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
         <div className="page__container">
-          <Header />
-          <Main 
-            onEditProfile={handleEditProfileClick}
-            onEditAvatar={handleEditAvatarClick}
-            onAddPlace={handleAddPlaceClick}
-            onCardClick={handleCardClick}
-            cards={cards}
-            onCardClickLike={handleCardLike}
-            onTrashClick={handleTrashClick}
-            onCardClickToDelete={handleCardToDeleteClick}
-            isLoading={isLoading}/>
-          <Footer />
+          <Switch>
+            <Route path="/sign-up">
+
+                <Header />
+                <Register />
+
+            </Route>
+            <Route path="/sign-in">
+
+                <Header />
+                <Login 
+                  onLoginClick={handleLoginClick}/>
+
+            </Route>
+            <Route exact path="/">
+
+            <Header />
+            <ProtectedRoute
+              component={Main}
+              isLogged={true}
+              onEditProfile={handleEditProfileClick}
+              onEditAvatar={handleEditAvatarClick}
+              onAddPlace={handleAddPlaceClick}
+              onCardClick={handleCardClick}
+              cards={cards}
+              onCardClickLike={handleCardLike}
+              onTrashClick={handleTrashClick}
+              onCardClickToDelete={handleCardToDeleteClick}
+              isLoading={isLoading} />
+            <Footer />
+
+            </Route>
+          </Switch>
         </div>
         <EditProfilePopup
           isOpen={isEditProfilePopupOpen}
@@ -196,6 +228,11 @@ function App() {
           card={selectedCard}
           onClose={closeAllPopups}/>
 
+        <InfoTooltip
+          isOpen={isInfoTooltipOpen}
+          onClose={closeAllPopups}
+          onUpdateAvatar={handleUpdateAvatar}
+          isConfirm={isConfirmating}/>
       </div>
     </CurrentUserContext.Provider>
   );
