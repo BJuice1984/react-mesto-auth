@@ -1,9 +1,7 @@
 import React from 'react';
 import PopupWithForm from './PopupWithForm';
 
-function EditAvatarPopup(props) {
-
- 
+function EditAvatarPopup(props) { 
   
   const avaRef = React.useRef();
 

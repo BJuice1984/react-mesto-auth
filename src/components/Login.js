@@ -3,7 +3,7 @@ import React from "react";
 function Login(props) {
 
   const [formParams, setFormParams] = React.useState({
-    username: '',
+    email: '',
     password: '',
   });
 
@@ -19,10 +19,10 @@ function Login(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!formParams.username || !formParams.password){
+    if (!formParams.email || !formParams.password){
       return;
     }
-    props.handleLogin({ username: formParams.username, password: formParams.password })
+    props.onLoginClick({ email: formParams.email, password: formParams.password })
         .catch(err => {
           setMessage(err.message);
         });
@@ -34,12 +34,12 @@ function Login(props) {
       <form className="login__input-form" onSubmit={handleSubmit}>
         <label className="login__input-form-label">
           <input
-          value={formParams.username}
+          value={formParams.email}
           onChange={handleChange}
           className="login__input-text"
           type="text"
-          name="username"
-          id="username"
+          name="email"
+          id="email"
           placeholder="Email"
           required
           minLength="2"
