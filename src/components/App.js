@@ -9,7 +9,7 @@ import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
 import ConfirmationPopup from './ConfirmationPopup';
-import { Switch, Route, Redirect, useHistory } from 'react-router-dom';
+import { Switch, Route, useHistory } from 'react-router-dom';
 import Login from './Login';
 import Register from './Register';
 import ProtectedRoute from './ProtectedRoute';
@@ -28,8 +28,9 @@ function App() {
   const [isConfirmDeleteCard, setIsConfirmDeleteCard] = React.useState(false);
   const [isConfirmating, setIsConfirmatiing] = React.useState(false);
   const [cardToDeleted, setCardToDeleted] = React.useState(null);
-  const [isInfoTooltipOpen, setInfoTooltipOpen] = React.useState(true);
+  const [isInfoTooltipOpen, setInfoTooltipOpen] = React.useState(false);
   const [loggedIn, setLoggedIn] = React.useState(false);
+  const [isRegistered, setRegister] =React.useState(false);
   const [userData, setUserData] = React.useState(null);
   const history = useHistory();
 
@@ -154,17 +155,25 @@ function App() {
 
   const handleRegister = ({ password, email }) => {
     return Auth.register(password, email)
+    .then((res) => {
+      if (res)  {
+        setRegister(true)
+      }
+    })
     .then(() => {
-      // console.log(res)
-      history.push("/sign-in")
+      setInfoTooltipOpen(true);
+        history.push("/sign-in")
+    })
+    .catch(() => {
+      setInfoTooltipOpen(true);
+      setRegister(false)
+      history.push("/sign-up")
     })
   }
 
   const handleLogin = ({ password, email }) => {
-    // console.log(password, email)
     return Auth.authorize(password, email)
     .then((data) => {
-      // console.log(data.token)
       if (data.token) {
         localStorage.setItem('jwt', data.token);
 
@@ -220,27 +229,22 @@ function App() {
         <div className="page__container">
           <Switch>
             <Route path="/sign-up">
-
                 <Header 
                   email=""
                   route="/sign-in"
                   buttonText="Войти" />
                 <Register
                   onRegClick={handleRegister} />
-
             </Route>
             <Route path="/sign-in">
-
                 <Header
                   email=""
                   route="/sign-up"
                   buttonText="Регистрация" />
                 <Login
                   onLoginClick={handleLogin} />
-
             </Route>
             <Route exact path="/">
-
             <Header 
               email={userData}
               route="/sign-in"
@@ -259,7 +263,6 @@ function App() {
               onCardClickToDelete={handleCardToDeleteClick}
               isLoading={isLoading} />
             <Footer />
-
             </Route>
           </Switch>
         </div>
@@ -293,6 +296,7 @@ function App() {
           onClose={closeAllPopups}/>
 
         <InfoTooltip
+          onRegistered={isRegistered}
           isOpen={isInfoTooltipOpen}
           onClose={closeAllPopups} />
       </div>

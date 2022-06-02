@@ -3,8 +3,6 @@ import { Link } from 'react-router-dom';
 
 function Register(props) {
 
-  // console.log(props)
-
   const [formParams, setFormParams] = React.useState({
     email: '',
     password: '',

@@ -2,7 +2,6 @@ import logo from '../images/Logo.svg';
 import { Link } from 'react-router-dom';
 
 function Header(props) {
-  // console.log(props.email)
 
   return (
     <header className="header">
@@ -10,7 +9,7 @@ function Header(props) {
       <div className="header__container">
         <p className="header__email">{props.email}</p>
         <Link to={props.route} 
-          className="header__button" 
+          className={`header__button ${props.email ? 'header__button_grey' : ''}`} 
           type="button"
           onClick={props.handleSignOut}
           aria-label="Выйти">{props.buttonText}</Link>
