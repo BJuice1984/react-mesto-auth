@@ -1,22 +1,13 @@
 import React from 'react';
 import ok_pic from '../images/OK_pic.svg';
 import err_pic from '../images/ERR_pic.svg';
+import { useEscClose, useClickClose} from '../utils/useClose';
 
 function InfoTooltip(props) {
 
-  React.useEffect(() => {
-    if (!props.isOpen) return;
+  useEscClose(props.isOpen, props.onClose);
 
-    function handleEsc(e) {
-      if (e.key === "Escape") {
-        props.onClose()
-      }
-    }
-
-    document.addEventListener("keydown", handleEsc);    
-    return () => {document.removeEventListener("keydown", handleEsc)
-    }
-  }, [props.isOpen]);
+  useClickClose(props.isOpen, props.onClose, "popup_opened");
 
   React.useEffect(() => {
     if (!props.isOpen) return;

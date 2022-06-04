@@ -1,34 +1,11 @@
 import React from 'react';
+import { useEscClose, useClickClose} from '../utils/useClose';
 
 function PopupWithForm(props) {
 
-  React.useEffect(() => {
-    if (!props.isOpen) return;
+  useEscClose(props.isOpen, props.onClose);
 
-    function handleEsc(e) {
-      if (e.key === "Escape") {
-        props.onClose()
-      }
-    }
-
-    document.addEventListener("keydown", handleEsc);    
-    return () => {document.removeEventListener("keydown", handleEsc)
-    }
-  }, [props.isOpen]);
-
-  React.useEffect(() => {
-    if (!props.isOpen) return;
-
-    function handleClickClose(e) {
-      if (e.target.className.includes("popup_opened")) {
-        props.onClose()
-      }
-    }
-
-    document.addEventListener("mousedown", handleClickClose);    
-    return () => {document.removeEventListener("mousedown", handleClickClose)
-    }
-  }, [props.isOpen]);
+  useClickClose(props.isOpen, props.onClose, "popup_opened");
 
   return(
     <div className={`popup popup_type_${props.name} ${props.isOpen ? 'popup_opened' : ''}`}>

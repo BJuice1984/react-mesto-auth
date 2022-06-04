@@ -9,7 +9,7 @@ import EditProfilePopup from './EditProfilePopup';
 import EditAvatarPopup from './EditAvatarPopup';
 import AddPlacePopup from './AddPlacePopup';
 import ConfirmationPopup from './ConfirmationPopup';
-import { Switch, Route, useHistory } from 'react-router-dom';
+import { Switch, Route, useHistory, Redirect } from 'react-router-dom';
 import Login from './Login';
 import Register from './Register';
 import ProtectedRoute from './ProtectedRoute';
@@ -26,11 +26,11 @@ function App() {
   const [cards, setCards] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(false);
   const [isConfirmDeleteCard, setIsConfirmDeleteCard] = React.useState(false);
-  const [isConfirmating, setIsConfirmatiing] = React.useState(false);
+  const [isConfirmating, setIsConfirmating] = React.useState(false);
   const [cardToDeleted, setCardToDeleted] = React.useState(null);
   const [isInfoTooltipOpen, setInfoTooltipOpen] = React.useState(false);
   const [loggedIn, setLoggedIn] = React.useState(false);
-  const [isRegistered, setRegister] =React.useState(false);
+  const [isRegistered, setIsRegister] =React.useState(false);
   const [userData, setUserData] = React.useState(null);
   const history = useHistory();
 
@@ -76,7 +76,7 @@ function App() {
   }
 
   function handleCardDelete(card) {
-    setIsConfirmatiing(true);
+    setIsConfirmating(true);
     api.getDeleteCard(card._id)
     .then(() => {
       setCards((prevCards) => {  //Обновляем стейт через колбек по предидущему значению стейта без замыкания
@@ -87,11 +87,11 @@ function App() {
     .catch(err => {
       console.log(err)
     })
-    .finally(() => setIsConfirmatiing(false));
+    .finally(() => setIsConfirmating(false));
   }
 
   function handleUpdateUser(data) {
-    setIsConfirmatiing(true);
+    setIsConfirmating(true);
     api.getChangeUserInfo(data)
     .then((res) => {
       setCurrentUser(res);
@@ -100,11 +100,11 @@ function App() {
     .catch(err => {
       console.log(err)
     })
-    .finally(() => setIsConfirmatiing(false));
+    .finally(() => setIsConfirmating(false));
   }
 
   function handleUpdateAvatar(link) {
-    setIsConfirmatiing(true);
+    setIsConfirmating(true);
     api.getChangeAvatar(link)
     .then((res) => {
       setCurrentUser(res);
@@ -113,11 +113,11 @@ function App() {
     .catch(err => {
       console.log(err)
     })
-    .finally(() => setIsConfirmatiing(false));
+    .finally(() => setIsConfirmating(false));
   }
 
   function handleAddPlaceSubmit(cardItem) {
-    setIsConfirmatiing(true);
+    setIsConfirmating(true);
     api.getNewCard(cardItem)
     .then((newCardItem) => {
       setCards([newCardItem, ...cards]);
@@ -126,7 +126,7 @@ function App() {
     .catch(err => {
       console.log(err)
     })
-    .finally(() => setIsConfirmatiing(false));
+    .finally(() => setIsConfirmating(false));
   }
 
   function handleEditProfileClick() {
@@ -157,7 +157,7 @@ function App() {
     return Auth.register(password, email)
     .then((res) => {
       if (res)  {
-        setRegister(true)
+        setIsRegister(true)
       }
     })
     .then(() => {
@@ -166,7 +166,7 @@ function App() {
     })
     .catch(() => {
       setInfoTooltipOpen(true);
-      setRegister(false)
+      setIsRegister(false)
       history.push("/sign-up")
     })
   }
@@ -176,22 +176,24 @@ function App() {
     .then((data) => {
       if (data.token) {
         localStorage.setItem('jwt', data.token);
-
-        tokenCheck();
+        const jwt = localStorage.getItem('jwt');
+        Auth.getContent(jwt).then((res) => {
+          if (res){
+            setUserData(res.data.email);
+            setLoggedIn(true);
+          }
+        });
       }
     })
   }
 
   const tokenCheck = () => {
     if (localStorage.getItem('jwt')){
-      let jwt = localStorage.getItem('jwt');
+      const jwt = localStorage.getItem('jwt');
       Auth.getContent(jwt).then((res) => {
         if (res){
-          let userData = {
-            email: res.data.email
-          }
-          setLoggedIn(true);
-          setUserData(userData.email);
+          setUserData(res.data.email);
+          setLoggedIn(true);          
         }
       });
     }
@@ -227,29 +229,19 @@ function App() {
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page">
         <div className="page__container">
+          <Header 
+              email={userData}
+              handleSignOut={signOut} />
           <Switch>
             <Route path="/sign-up">
-                <Header 
-                  email=""
-                  route="/sign-in"
-                  buttonText="Войти" />
-                <Register
-                  onRegClick={handleRegister} />
+              <Register
+                onRegClick={handleRegister} />
             </Route>
             <Route path="/sign-in">
-                <Header
-                  email=""
-                  route="/sign-up"
-                  buttonText="Регистрация" />
-                <Login
-                  onLoginClick={handleLogin} />
+              <Login
+                onLoginClick={handleLogin} />
             </Route>
             <Route exact path="/">
-            <Header 
-              email={userData}
-              route="/sign-in"
-              buttonText="Выйти"
-              handleSignOut={signOut} />
             <ProtectedRoute
               component={Main}
               isLogged={loggedIn}
@@ -263,6 +255,9 @@ function App() {
               onCardClickToDelete={handleCardToDeleteClick}
               isLoading={isLoading} />
             <Footer />
+            </Route>
+            <Route path="*">
+              <Redirect to={loggedIn ? "/" : "/sign-in"} />
             </Route>
           </Switch>
         </div>

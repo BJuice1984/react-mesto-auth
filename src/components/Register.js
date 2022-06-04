@@ -20,7 +20,7 @@ function Register(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    let { password, email } = formParams;
+    const { password, email } = formParams;
     props.onRegClick({ password, email })
         .catch(err => {
           setMessage(err.message);
