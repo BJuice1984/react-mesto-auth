@@ -18,5 +18,6 @@ HTML
 CSS
 
 
-##Ссылка на проект в gh-pages
-https://BJuice1984/github.io/react-mesto-auth
+Ссылка на проект в gh-pages
+
+https://bjuice1984.github.io/react-mesto-auth/
